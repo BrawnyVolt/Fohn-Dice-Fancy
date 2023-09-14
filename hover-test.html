@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   <title>Fohn Polished</title>
+   
+   <script>
+    let tooltipSpan = document.getElementById('hidden-thing');
+
+    window.onmousemove = function (e) {
+        let x = e.clientX,
+            y = e.clientY;
+        tooltipSpan.style.top = (y + 10) + 'px';
+        tooltipSpan.style.left = (x + 10) + 'px';
+    };
+  
+  </script>
+
+  </head>
+
+  <style>
+    
+    .tooltip span {
+        display:none;
+    }
+    .tooltip:hover span {
+        display:block;
+        position:fixed;
+        overflow:hidden;
+    }
+  </style>
+  <body>
+    <a class="tooltip">
+      Target of the hover
+      <span id="hidden-thing">
+          <p>
+          the revealed-on-hover element, in this case a span
+          </p>
+      </span>
+  </a>
+  </body>
+
+</html> 

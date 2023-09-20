@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   <title>Fohn Polished</title>
+   
+   <script>
+
+    function oneDamageRoll(){
+      //roll 4d6, assign to var piercing
+      //roll 2d8 assign to var s/e/n
+      //roll d4 assign to var cold
+      //push the sum to damage array, then get the damage.length
+      //doc.getEl(damage.length).innerHTML = "`${piercing} piercing/slashing&#10;`${sen}` son/elec/nec&$10:`${cold}` cold"
+      let piercing = 0;
+      let sen = 0;
+      let cold = 0;
+      piercing = (roll(6) + roll(6) + roll(6) + roll(6) + 12);
+      sen = (roll(8) + roll(8));
+      cold = (roll(4));
+      damage.push(piercing + sen + cold);
+      let length = damage.length - 1;
+      document.getElementById("d" + length).title = piercing + ' Piercing/Slashing \n' + sen  + ' Sonic/Electric/Necrotic \n' + cold + ' Cold'
+    }
+
+    function addValuesToDOM() {
+      for (let i = 1; i < diceRolls.length; i++) { 
+      document.getElementById(`${i}`).innerHTML = diceRolls[i];
+      document.getElementById("d" +`${i}`).innerHTML = damage[i];
+      }
+    }
+
+    function roll(max) {
+      return Math.floor(Math.random() * max) + 1;
+    }
+
+    function display() {
+      console.log(diceRolls);
+      console.log(damage);
+    }
+
+    let diceRolls = [];
+    let damage = [];
+
+    function allOut(){
+      dagger();
+      diceRolls.push(roll(20) + 19);
+
+      if (diceRolls[5] === 39){
+        diceRolls[5] += " *NAT 20*"
+      } else if (diceRolls[5] > 33){
+        diceRolls[5] += " crit"
+      } else if (diceRolls[5] < 21){
+        diceRolls[5] = "Nat 1"
+      }
+
+      oneDamageRoll();
+
+      let filler = []
+      console.log(filler);
+      display()
+
+}
+
+    function dagger() {
+      diceRolls = ["Rolls: "];
+      damage = ["Dmg:   "];
+      diceRolls.push(roll(20) + 20);
+      diceRolls.push(roll(20) + 20);
+      diceRolls.push(roll(20) + 15);
+      diceRolls.push(roll(20) + 15);
+
+
+      for (let i = 0; i < 3; i++) { 
+        if (diceRolls[i] === 40) {
+            diceRolls[i] += " *NAT 20*"
+        } else if (diceRolls[i] > 34) {
+            diceRolls[i] += " crit"
+        } else if (diceRolls[i] < 22) {
+            diceRolls[i] = "Nat 1"
+        }
+      };
+
+      for (let i = 3; i < 5; i++) { 
+        if (diceRolls[i] > 34){
+            diceRolls[i] += " *NAT 20*"
+        } else if (diceRolls[i] > 28) {
+            diceRolls[i] += " crit"
+        }  else if (diceRolls[i] < 17) {
+            diceRolls[i] = "Nat 1"
+        }
+      };
+
+    //4d6+2d8+1d4+str+5:
+    //4d6 piercing/slashing [dagger]
+    //2d8 sonic/elec/necrotic [magus]
+    //1d4 cold [magus]
+    //str+5 piercing/slashing [dagger]
+
+
+    oneDamageRoll();
+    oneDamageRoll();
+    oneDamageRoll();
+    oneDamageRoll();
+    // Uncomment these to revert to original
+    // damage.push(roll(6) + roll(6) + roll(6) + roll(6) + roll(8) + roll(8) + roll(4) + 12);
+    // damage.push(roll(6) + roll(6) + roll(6) + roll(6) + roll(8) + roll(8) + roll(4) + 12);
+    // damage.push(roll(6) + roll(6) + roll(6) + roll(6) + roll(8) + roll(8) + roll(4) + 12);
+    // damage.push(roll(6) + roll(6) + roll(6) + roll(6) + roll(8) + roll(8) + roll(4) + 12);
+
+    display();
+    }
+
+    let fistDmg =[]; 
+
+    function fists(hits) {
+    //7d6+2d8+1d4+7
+      fistDmg = []
+
+      for (let i = 0; i < hits; i++) { 
+      fistDmg.push(roll(6) + roll(6) + roll(6) + roll(6) + roll(6) + roll(6) + roll(6) + roll(8) + roll(8) + + roll(4) + 7)
+      }
+
+      console.log(fistDmg)
+    }
+  
+  </script>
+
+  </head>
+
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      width:20%;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+  <body>
+    
+    <button onclick="dagger();addValuesToDOM()">Dagger (4 attacks, 1 ki)</button>
+    <br>
+    <button onclick="allOut();addValuesToDOM()">All Out (5 attacks, 2 ki)</button>
+    
+    <table>
+      <tr>
+        <th>1st Attack</th>
+        <th>2nd Attack</th>
+        <th>3rd Attack</th>
+        <th>4th Attack</th>
+        <th>5th Attack</th>
+      </tr>
+      <tr>
+        <td id="1">Total Roll</td>
+        <td id="2">Total Roll</td>
+        <td id="3">Total Roll</td>
+        <td id="4">Total Roll</td>
+        <td id="5">Total Roll</td>
+      </tr>
+      <tr>
+        <td id="d1" title="Piercing/Slashing&#10;Sonic/Electric/Necrotic&#10;Cold">Total Damage
+        <td id="d2" title="Piercing/Slashing&#10;Sonic/Electric/Necrotic&#10;Cold">Total Damage
+        <td id="d3" title="Piercing/Slashing&#10;Sonic/Electric/Necrotic&#10;Cold">Total Damage
+        <td id="d4" title="Piercing/Slashing&#10;Sonic/Electric/Necrotic&#10;Cold">Total Damage
+        <td id="d5" title="Piercing/Slashing&#10;Sonic/Electric/Necrotic&#10;Cold">Total Damage
+      </tr>
+    </table>
+    
+
+  </body>
+
+</html> 
